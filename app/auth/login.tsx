@@ -1,88 +1,74 @@
-import { ThemedText } from '@/components/themed-text';
-import { useAuth } from '@/hooks/useAuth';
-import { Link, router } from 'expo-router';
-import { useState } from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+import { Link } from 'expo-router';
+import { LoginForm } from '@/features/auth/presentation/login-form';
+import { GuestGuard } from '@/core/guards/auth.guard';
+import { DarkTheme as T, Shadows, Sizes, Typography, EPN_GOLD, EPN_BLUE } from '@/constants/design-system';
 
 export default function LoginScreen() {
-  const { signIn } = useAuth();
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const handleLogin = async () => {
-    try {
-      if (!email.includes('@epn.edu.ec')) {
-        setError('Correo institucional requerido');
-        return;
-      }
-
-      await signIn(email, password);
-      router.replace('/(tabs)');
-    } catch (e) {
-      setError('Credenciales incorrectas');
-    }
-  };
-
   return (
-    <View style={styles.container}>
-      <ThemedText style={styles.title}>Iniciar sesión</ThemedText>
+    <GuestGuard>
+      <View style={s.root}>
+        <View style={s.container}>
+          <View style={s.brand}>
+            <View style={s.logo}>
+              <View style={[s.logoInner, { backgroundColor: EPN_BLUE }]}>
+                <Text style={s.logoText}>EPN</Text>
+              </View>
+              <View style={s.logoGlow} />
+            </View>
+            <Text style={s.appName}>EsfotGo</Text>
+            <View style={s.goldLine} />
+            <Text style={s.tagline}>Escuela Politécnica Nacional</Text>
+          </View>
 
-      <TextInput
-        placeholder="Correo institucional"
-        style={[styles.input, error && styles.inputError]}
-        value={email}
-        onChangeText={setEmail}
-      />
+          <View style={s.formCard}>
+            <LoginForm />
+          </View>
 
-      <TextInput
-        placeholder="Contraseña"
-        secureTextEntry
-        style={[styles.input, error && styles.inputError]}
-        value={password}
-        onChangeText={setPassword}
-      />
-
-      {error ? <ThemedText style={styles.error}>{error}</ThemedText> : null}
-
-      <Pressable style={styles.button} onPress={handleLogin}>
-        <ThemedText style={styles.buttonText}>Ingresar</ThemedText>
-      </Pressable>
-
-      <Link href="/auth/register">
-        <ThemedText style={styles.link}>Crear cuenta</ThemedText>
-      </Link>
-    </View>
+          <View style={s.footer}>
+            <Link href="/auth/register" style={s.linkPrimary}>
+              Crear cuenta institucional
+            </Link>
+            <Link href="/auth/recover" style={s.linkSecondary}>
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </View>
+        </View>
+      </View>
+    </GuestGuard>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FFF', padding: 24, justifyContent: 'center' },
-
-  title: { fontSize: 28, fontWeight: 'bold', color: '#00205B', marginBottom: 30 },
-
-  input: {
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 10,
-    padding: 14,
-    marginBottom: 12,
+const s = StyleSheet.create({
+  root: { flex: 1, backgroundColor: T.background },
+  container: {
+    flex: 1, paddingHorizontal: Sizes.paddingXl,
+    justifyContent: 'center', maxWidth: 420, width: '100%', alignSelf: 'center',
   },
-
-  inputError: { borderColor: '#C8102E' },
-
-  button: {
-    backgroundColor: '#00205B',
-    padding: 16,
-    borderRadius: 12,
-    marginTop: 10,
-    alignItems: 'center',
+  brand: { alignItems: 'center', marginBottom: 28, gap: 8 },
+  logo: { position: 'relative' },
+  logoInner: {
+    width: 56, height: 56, borderRadius: 16,
+    justifyContent: 'center', alignItems: 'center', ...Shadows.glow,
   },
-
-  buttonText: { color: '#FFF', fontWeight: 'bold' },
-
-  error: { color: '#C8102E', marginBottom: 10 },
-
-  link: { marginTop: 16, textAlign: 'center', color: '#00205B' },
+  logoText: { color: T.text, fontSize: 20, fontWeight: '900', letterSpacing: 2 },
+  logoGlow: {
+    position: 'absolute', top: -6, left: -6,
+    width: 68, height: 68, borderRadius: 34,
+    backgroundColor: 'rgba(0,51,160,0.12)',
+  },
+  appName: { fontSize: 26, fontWeight: '800', color: T.text, letterSpacing: -0.5 },
+  goldLine: { width: 36, height: 3, backgroundColor: EPN_GOLD, borderRadius: 2, marginVertical: 2 },
+  tagline: { fontSize: 13, color: T.textSecondary },
+  formCard: {
+    backgroundColor: T.surfaceGlass, borderRadius: Sizes.radiusLg,
+    borderWidth: 1, borderColor: T.cardBorder, padding: Sizes.paddingLg, ...Shadows.lg,
+  },
+  footer: { marginTop: 20, alignItems: 'center', gap: 14 },
+  linkPrimary: {
+    color: T.text, fontSize: 13, fontWeight: '600',
+    backgroundColor: 'rgba(255,255,255,0.08)', paddingHorizontal: 20, paddingVertical: 10,
+    borderRadius: Sizes.radiusSm, overflow: 'hidden',
+  },
+  linkSecondary: { color: T.textTertiary, fontSize: 13, textDecorationLine: 'underline' },
 });

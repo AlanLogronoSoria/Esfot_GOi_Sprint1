@@ -1,31 +1,33 @@
-import { Button } from '@/components/ui/Button';
-import { TextInput } from '@/components/ui/TextInput';
-import { Stack, useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+import { Link } from 'expo-router';
+import { RecoverForm } from '@/features/auth/presentation/recover-form';
+import { DarkTheme as T, Sizes } from '@/constants/design-system';
+import { GuestGuard } from '@/core/guards/auth.guard';
 
-export default function Recover() {
-  const [email, setEmail] = useState('');
-  const router = useRouter();
-
-  const onRecover = async () => {
-    // Simulate sending recovery email
-    await new Promise((r) => setTimeout(r, 700));
-    Alert.alert('Enviado', 'Se ha enviado un enlace de recuperación a su correo.');
-    router.replace('/auth/login');
-  };
-
+export default function RecoverScreen() {
   return (
-    <View style={s.container}>
-      <Stack.Screen options={{ title: 'Recuperar contraseña' }} />
-      <Text style={s.h1}>Recuperar contraseña</Text>
-      <TextInput label="Email institucional" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
-      <Button title="Enviar enlace" onPress={onRecover} />
-    </View>
+    <GuestGuard>
+      <View style={s.root}>
+        <View style={s.container}>
+          <View style={s.card}>
+            <View style={s.iconCircle}><Text style={s.icon}>🔑</Text></View>
+            <RecoverForm />
+          </View>
+          <View style={s.footer}>
+            <Link href="/auth/login" style={s.link}>← Volver al inicio de sesión</Link>
+          </View>
+        </View>
+      </View>
+    </GuestGuard>
   );
 }
 
 const s = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#fff' },
-  h1: { fontSize: 20, fontWeight: '700', marginBottom: 12, color: '#c8102e' },
+  root: { flex: 1, backgroundColor: T.background },
+  container: { flex: 1, padding: Sizes.paddingXl, justifyContent: 'center', maxWidth: 420, width: '100%', alignSelf: 'center' },
+  card: { backgroundColor: T.surfaceGlass, borderRadius: Sizes.radiusLg, padding: Sizes.paddingLg, alignItems: 'center', gap: Sizes.gapLg, borderWidth: 1, borderColor: T.cardBorder },
+  iconCircle: { width: 52, height: 52, borderRadius: 26, backgroundColor: T.infoBg, justifyContent: 'center', alignItems: 'center' },
+  icon: { fontSize: 24 },
+  footer: { marginTop: Sizes.gapLg, alignItems: 'center' },
+  link: { color: T.primary, fontSize: 14, fontWeight: '600' },
 });
