@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { RegistrationForm } from '@/features/auth/presentation/registration-form';
 import { GuestGuard } from '@/core/guards/auth.guard';
 import { DarkTheme as T, Shadows } from '@/constants/design-system';
@@ -7,14 +7,23 @@ export default function RegisterScreen() {
   return (
     <GuestGuard>
       <View style={st.root}>
-        <View style={st.container}>
-          <View style={st.brand}>
-            <View style={st.logoInner}><Text style={st.logoText}>EPN</Text></View>
-            <Text style={st.appName}>EsfotGo</Text>
-            <Text style={st.tagline}>Escuela Politécnica Nacional</Text>
-          </View>
-          <RegistrationForm />
-        </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={st.keyboard}
+        >
+          <ScrollView
+            contentContainerStyle={st.container}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={st.brand}>
+              <View style={st.logoInner}><Text style={st.logoText}>EPN</Text></View>
+              <Text style={st.appName}>EsfotGo</Text>
+              <Text style={st.tagline}>Escuela Politécnica Nacional</Text>
+            </View>
+            <RegistrationForm />
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     </GuestGuard>
   );
@@ -22,7 +31,8 @@ export default function RegisterScreen() {
 
 const st = StyleSheet.create({
   root: { flex: 1, backgroundColor: T.background },
-  container: { flex: 1, padding: 20, maxWidth: 440, width: '100%', alignSelf: 'center', justifyContent: 'center' },
+  keyboard: { flex: 1 },
+  container: { flexGrow: 1, padding: 20, paddingTop: 40, paddingBottom: 40, maxWidth: 440, width: '100%', alignSelf: 'center', justifyContent: 'center' },
   brand: { alignItems: 'center', marginBottom: 20, gap: 4 },
   logoInner: {
     width: 48, height: 48, borderRadius: 14, backgroundColor: T.primary,

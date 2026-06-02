@@ -45,6 +45,7 @@ export default function EventsScreen() {
           renderItem={renderItem}
           keyExtractor={keyFn}
           contentContainerStyle={s.list}
+          keyboardShouldPersistTaps="handled"
           onEndReached={() => hasNextPage && !isFetchingNextPage && fetchNextPage()}
           onEndReachedThreshold={0.4}
           ListFooterComponent={isFetchingNextPage ? <Text style={s.footer}>Cargando más...</Text> : null}

@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { Link } from 'expo-router';
 import { LoginForm } from '@/features/auth/presentation/login-form';
 import { GuestGuard } from '@/core/guards/auth.guard';
@@ -8,32 +8,41 @@ export default function LoginScreen() {
   return (
     <GuestGuard>
       <View style={s.root}>
-        <View style={s.container}>
-          <View style={s.brand}>
-            <View style={s.logo}>
-              <View style={[s.logoInner, { backgroundColor: EPN_BLUE }]}>
-                <Text style={s.logoText}>EPN</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={s.keyboard}
+        >
+          <ScrollView
+            contentContainerStyle={s.container}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={s.brand}>
+              <View style={s.logo}>
+                <View style={[s.logoInner, { backgroundColor: EPN_BLUE }]}>
+                  <Text style={s.logoText}>EPN</Text>
+                </View>
+                <View style={s.logoGlow} />
               </View>
-              <View style={s.logoGlow} />
+              <Text style={s.appName}>EsfotGo</Text>
+              <View style={s.goldLine} />
+              <Text style={s.tagline}>Escuela Politécnica Nacional</Text>
             </View>
-            <Text style={s.appName}>EsfotGo</Text>
-            <View style={s.goldLine} />
-            <Text style={s.tagline}>Escuela Politécnica Nacional</Text>
-          </View>
 
-          <View style={s.formCard}>
-            <LoginForm />
-          </View>
+            <View style={s.formCard}>
+              <LoginForm />
+            </View>
 
-          <View style={s.footer}>
-            <Link href="/auth/register" style={s.linkPrimary}>
-              Crear cuenta institucional
-            </Link>
-            <Link href="/auth/recover" style={s.linkSecondary}>
-              ¿Olvidaste tu contraseña?
-            </Link>
-          </View>
-        </View>
+            <View style={s.footer}>
+              <Link href="/auth/register" style={s.linkPrimary}>
+                Crear cuenta institucional
+              </Link>
+              <Link href="/auth/recover" style={s.linkSecondary}>
+                ¿Olvidaste tu contraseña?
+              </Link>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     </GuestGuard>
   );
@@ -41,9 +50,12 @@ export default function LoginScreen() {
 
 const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: T.background },
+  keyboard: { flex: 1 },
   container: {
-    flex: 1, paddingHorizontal: Sizes.paddingXl,
-    justifyContent: 'center', maxWidth: 420, width: '100%', alignSelf: 'center',
+    flexGrow: 1, paddingHorizontal: Sizes.paddingXl,
+    paddingTop: 80, paddingBottom: 40,
+    maxWidth: 420, width: '100%', alignSelf: 'center',
+    justifyContent: 'center',
   },
   brand: { alignItems: 'center', marginBottom: 28, gap: 8 },
   logo: { position: 'relative' },

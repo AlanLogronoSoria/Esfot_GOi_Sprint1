@@ -108,7 +108,7 @@ const ss = StyleSheet.create({
     borderRadius: Sizes.radiusMd, borderWidth: 1.5, borderColor: T.inputBorder,
     height: Sizes.inputHeight, paddingHorizontal: Sizes.paddingMd,
   },
-  inputFocused: { borderColor: T.inputBorderFocus, ...Shadows.glow },
+  inputFocused: { borderColor: T.inputBorderFocus, borderWidth: 1.5, backgroundColor: T.inputBg },
   inputError: { borderColor: T.error },
   input: { flex: 1, fontSize: 15, color: T.inputText, paddingVertical: 0 },
   inputIcon: { fontSize: 16, marginRight: 10 },

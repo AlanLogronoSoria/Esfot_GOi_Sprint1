@@ -38,7 +38,7 @@ export function ProfileForm() {
   }, [secureLogout]);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={st.scroll}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={st.scroll} keyboardShouldPersistTaps="handled">
       <View style={st.root}>
         {/* Avatar */}
         <View style={st.avatarSection}>

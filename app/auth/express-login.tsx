@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { ExpressLoginForm } from '@/features/admin/presentation/express-login-form';
 
@@ -7,18 +7,24 @@ export default function ExpressAuthScreen() {
   const selectedRole = role === 'admin' ? 'admin' : 'estudiante';
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.scroll}
-      keyboardShouldPersistTaps="handled"
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={styles.keyboard}
     >
-      <View style={styles.container}>
-        <ExpressLoginForm role={selectedRole} />
-      </View>
-    </ScrollView>
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.container}>
+          <ExpressLoginForm role={selectedRole} />
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  keyboard: { flex: 1 },
   scroll: {
     flexGrow: 1,
     backgroundColor: '#FFFFFF',

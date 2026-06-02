@@ -12,7 +12,7 @@ export default function ProfileScreen() {
   if (!user) return null;
 
   return (
-    <ScrollView style={s.screen} contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
+    <ScrollView style={s.screen} contentContainerStyle={s.content} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
       <ProfileForm />
     </ScrollView>
   );
