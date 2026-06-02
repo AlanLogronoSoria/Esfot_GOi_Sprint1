@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
-import { DarkTheme as T } from '@/constants/design-system';
+import { LightTheme as T } from '@/constants/design-system';
 
 function SBlock({ w, h, st }: { w: number | string; h: number; st?: object }) {
   const op = useRef(new Animated.Value(0.2)).current;

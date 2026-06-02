@@ -128,3 +128,61 @@ export const Glass = {
 export const EPN_GOLD = '#FFB81C';
 export const EPN_BLUE = '#0033A0';
 export const EPN_WHITE = '#F5F5F7';
+
+// ─── Institutional Light Theme ───
+
+export const LightTheme = {
+  primary: '#042c5c',
+  primaryLight: '#1a4a8a',
+  primaryMuted: 'rgba(4,44,92,0.10)',
+  primaryGlow: 'rgba(4,44,92,0.18)',
+
+  accent: '#eb2f26',
+  accentLight: '#ef5a52',
+  accentMuted: 'rgba(235,47,38,0.10)',
+
+  highlight: '#fabb54',
+  highlightLight: '#fcca77',
+  highlightMuted: 'rgba(250,187,84,0.15)',
+
+  neutral: '#827372',
+  neutralLight: '#a39493',
+  neutralMuted: 'rgba(130,115,114,0.10)',
+
+  background: '#F8FAFC',
+  backgroundElevated: '#FFFFFF',
+  backgroundCard: '#FFFFFF',
+
+  surface: '#FFFFFF',
+  surfaceGlass: 'rgba(255,255,255,0.80)',
+  surfaceBorder: 'rgba(0,0,0,0.06)',
+
+  text: '#0b1c30',
+  textPrimary: '#0b1c30',
+  textSecondary: '#827372',
+  textTertiary: '#a39493',
+  textMuted: '#c4bfbe',
+
+  success: '#059669',
+  successBg: 'rgba(5,150,105,0.10)',
+  warning: '#fabb54',
+  warningBg: 'rgba(250,187,84,0.12)',
+  error: '#eb2f26',
+  errorBg: 'rgba(235,47,38,0.08)',
+  info: '#042c5c',
+  infoBg: 'rgba(4,44,92,0.08)',
+
+  inputBg: '#F1F5F9',
+  inputBorder: 'rgba(0,0,0,0.10)',
+  inputBorderFocus: 'rgba(4,44,92,0.40)',
+  inputPlaceholder: '#a39493',
+  inputText: '#0b1c30',
+
+  tabBarBg: 'rgba(248,250,252,0.92)',
+  tabBarBorder: 'rgba(0,0,0,0.06)',
+  tabBarActive: '#042c5c',
+  tabBarInactive: '#827372',
+
+  cardBorder: 'rgba(0,0,0,0.06)',
+  divider: 'rgba(0,0,0,0.05)',
+} as const;

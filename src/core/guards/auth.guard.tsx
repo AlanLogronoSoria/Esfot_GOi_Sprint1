@@ -39,7 +39,7 @@ export function GuestGuard({ children }: { children: React.ReactNode }) {
   }
 
   if (isAuthenticated && isSessionValid) {
-    return <Redirect href="/(tabs)" />;
+    return <Redirect href="/(drawer)" />;
   }
 
   return <>{children}</>;

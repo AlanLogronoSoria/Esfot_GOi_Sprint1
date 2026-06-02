@@ -21,7 +21,7 @@ export default function IndexRedirect() {
   }
 
   if (user) {
-    return <Redirect href="/(tabs)" />;
+    return <Redirect href="/(drawer)" />;
   }
 
   return <Redirect href="/auth/login" />;

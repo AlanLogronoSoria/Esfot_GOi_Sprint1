@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import type { Event } from '../domain/event.entity';
-import { DarkTheme as T, Shadows, Sizes, EPN_GOLD, Typography } from '@/constants/design-system';
+import { LightTheme as T, Shadows, Sizes, EPN_GOLD, Typography } from '@/constants/design-system';
 import { memo } from 'react';
 
 const { width: W } = Dimensions.get('window');

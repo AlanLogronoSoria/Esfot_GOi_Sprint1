@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { ScrollView, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import type { EventDateFilter } from '../domain/event.entity';
-import { DarkTheme as T, Sizes } from '@/constants/design-system';
+import { LightTheme as T, Sizes } from '@/constants/design-system';
 
 interface EventFiltersProps {
   dateFilter: EventDateFilter;

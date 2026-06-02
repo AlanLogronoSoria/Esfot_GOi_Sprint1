@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import type { RouteCalculation } from '@/features/map/services/route-calculator';
 import { formatRouteInfo } from '@/features/map/services/route-calculator';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-import { DarkTheme as T, Shadows } from '@/constants/design-system';
+import { LightTheme as T, Shadows, Sizes, Typography } from '@/constants/design-system';
 
 interface RouteInfoCardProps {
   route: RouteCalculation | null;
@@ -23,20 +23,15 @@ export const RouteInfoCard = memo(
         exiting={FadeOut.duration(200)}
         style={styles.card}
       >
-        <View style={styles.row}>
-          <View style={styles.item}>
-            <Text style={styles.value}>{info.distanceLabel}</Text>
-            <Text style={styles.label}>Distancia</Text>
+        <View style={styles.content}>
+          <View style={styles.iconWrap}>
+            <Text style={styles.icon}>⏱</Text>
           </View>
-          <View style={styles.divider} />
-          <View style={styles.item}>
-            <Text style={styles.value}>{info.etaLabel}</Text>
-            <Text style={styles.label}>Caminando</Text>
-          </View>
-          <View style={styles.divider} />
-          <View style={styles.item}>
-            <Text style={styles.value}>{info.directionLabel}</Text>
-            <Text style={styles.label}>Dirección</Text>
+          <View style={styles.info}>
+            <Text style={styles.label}>Llegada estimada</Text>
+            <Text style={styles.value}>
+              {info.etaLabel} <Text style={styles.distance}>({info.distanceLabel})</Text>
+            </Text>
           </View>
         </View>
         <TouchableOpacity style={styles.clearBtn} onPress={onClear} activeOpacity={0.7}>
@@ -53,54 +48,62 @@ export const RouteInfoCard = memo(
 const styles = StyleSheet.create({
   card: {
     position: 'absolute',
-    top: 16,
+    top: 60,
     left: 16,
     right: 16,
-    backgroundColor: T.surface,
-    borderRadius: 14,
-    padding: 14,
+    backgroundColor: T.surfaceGlass,
+    borderRadius: Sizes.radiusLg,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    ...Shadows.md,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.3)',
+    ...Shadows.lg,
     zIndex: 200,
   },
-  row: {
+  content: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    gap: 14,
   },
-  item: {
+  iconWrap: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: T.primaryMuted,
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 2,
   },
-  value: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: T.primary,
-  },
+  icon: { fontSize: 20 },
+  info: { flex: 1, gap: 2 },
   label: {
-    fontSize: 10,
+    fontSize: 11,
+    fontWeight: '600',
     color: T.textSecondary,
     textTransform: 'uppercase',
-    letterSpacing: 0.3,
+    letterSpacing: 0.5,
   },
-  divider: {
-    width: 1,
-    height: 28,
-    backgroundColor: T.cardBorder,
+  value: {
+    ...Typography.h4,
+    color: T.textPrimary,
+  },
+  distance: {
+    ...Typography.bodySm,
+    color: T.textSecondary,
+    fontWeight: '400',
   },
   clearBtn: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    backgroundColor: T.inputBg,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: T.neutralMuted,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 8,
   },
   clearBtnText: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '700',
     color: T.textSecondary,
   },

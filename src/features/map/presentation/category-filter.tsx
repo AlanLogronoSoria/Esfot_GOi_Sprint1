@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { ScrollView, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { getAllCategories } from '@/features/map/application/map.hooks';
-import { DarkTheme as T, Sizes } from '@/constants/design-system';
+import { LightTheme as T, Sizes, Shadows } from '@/constants/design-system';
 
 interface CategoryFilterProps { selectedCategory: string | undefined; onSelectCategory: (c: string | undefined) => void; }
 
@@ -27,9 +27,9 @@ export const CategoryFilter = memo(function CategoryFilter({ selectedCategory, o
 
 const s = StyleSheet.create({
   c: { gap: 8, paddingHorizontal: 12 },
-  chip: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: T.surface, borderRadius: Sizes.radiusFull, paddingHorizontal: 14, paddingVertical: 8, borderWidth: 1, borderColor: T.cardBorder, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.2, shadowRadius: 2, elevation: 2 },
+  chip: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: T.surfaceGlass, borderRadius: Sizes.radiusFull, paddingHorizontal: 14, paddingVertical: 8, borderWidth: 1, borderColor: T.cardBorder, ...Shadows.sm },
   chipOn: { backgroundColor: T.primary, borderColor: T.primary },
   ce: { fontSize: 14 },
-  ct: { fontSize: 13, fontWeight: '600', color: T.textSecondary },
-  ctOn: { color: T.text },
+  ct: { fontSize: 13, fontWeight: '600', color: T.textPrimary },
+  ctOn: { color: '#FFFFFF' },
 });

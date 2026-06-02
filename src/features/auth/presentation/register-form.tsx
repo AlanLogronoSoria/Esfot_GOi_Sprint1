@@ -39,7 +39,7 @@ export function RegisterForm() {
     setServerError(null);
     try {
       await signUp(data);
-      router.replace('/(tabs)');
+      router.replace('/(drawer)');
     } catch (error) {
       if (error instanceof AppError) {
         setServerError(error.toUserMessage());

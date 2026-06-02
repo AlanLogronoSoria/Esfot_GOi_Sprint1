@@ -44,7 +44,7 @@ export function LoginForm() {
     setErr(null);
     try {
       await signIn(d, remember);
-      router.replace({ pathname: '/(tabs)', params: { showGpsPrompt: '1' } });
+      router.replace({ pathname: '/(drawer)', params: { showGpsPrompt: '1' } });
     } catch (e) { setErr(mapError(e)); }
   }, [signIn, remember, router]);
 

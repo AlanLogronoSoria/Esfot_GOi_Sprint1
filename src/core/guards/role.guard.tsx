@@ -24,7 +24,7 @@ export function RoleGuard({
 
   if (!hasAccess) {
     if (fallback) return fallback as React.ReactElement;
-    return <Redirect href="/(tabs)" />;
+    return <Redirect href="/(drawer)" />;
   }
 
   return children as React.ReactElement;

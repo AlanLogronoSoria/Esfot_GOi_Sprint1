@@ -1,15 +1,27 @@
-import { View, StyleSheet, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { Link } from 'expo-router';
-import { LoginForm } from '@/features/auth/presentation/login-form';
-import { GuestGuard } from '@/core/guards/auth.guard';
-import { DarkTheme as T, Shadows, Sizes, Typography, EPN_GOLD, EPN_BLUE } from '@/constants/design-system';
+import {
+  Shadows,
+  Sizes,
+  LightTheme as T,
+  Typography,
+} from "@/constants/design-system";
+import { GuestGuard } from "@/core/guards/auth.guard";
+import { LoginForm } from "@/features/auth/presentation/login-form";
+import { Link } from "expo-router";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function LoginScreen() {
   return (
     <GuestGuard>
       <View style={s.root}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
           style={s.keyboard}
         >
           <ScrollView
@@ -18,15 +30,15 @@ export default function LoginScreen() {
             showsVerticalScrollIndicator={false}
           >
             <View style={s.brand}>
-              <View style={s.logo}>
-                <View style={[s.logoInner, { backgroundColor: EPN_BLUE }]}>
+              <View style={s.logoRing}>
+                <View style={s.logoInner}>
                   <Text style={s.logoText}>EPN</Text>
                 </View>
-                <View style={s.logoGlow} />
               </View>
-              <Text style={s.appName}>EsfotGo</Text>
-              <View style={s.goldLine} />
-              <Text style={s.tagline}>Escuela Politécnica Nacional</Text>
+              <Text style={s.appName}>ESFOT Go</Text>
+              <Text style={s.tagline}>
+                Tu guia inteligente para navegar el campus de la Politecnica
+              </Text>
             </View>
 
             <View style={s.formCard}>
@@ -38,7 +50,7 @@ export default function LoginScreen() {
                 Crear cuenta institucional
               </Link>
               <Link href="/auth/recover" style={s.linkSecondary}>
-                ¿Olvidaste tu contraseña?
+                Olvidaste tu contrasena?
               </Link>
             </View>
           </ScrollView>
@@ -52,35 +64,73 @@ const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: T.background },
   keyboard: { flex: 1 },
   container: {
-    flexGrow: 1, paddingHorizontal: Sizes.paddingXl,
-    paddingTop: 80, paddingBottom: 40,
-    maxWidth: 420, width: '100%', alignSelf: 'center',
-    justifyContent: 'center',
+    flexGrow: 1,
+    paddingHorizontal: Sizes.paddingXl,
+    paddingTop: 80,
+    paddingBottom: 40,
+    maxWidth: 420,
+    width: "100%",
+    alignSelf: "center",
+    justifyContent: "center",
   },
-  brand: { alignItems: 'center', marginBottom: 28, gap: 8 },
-  logo: { position: 'relative' },
+  brand: { alignItems: "center", marginBottom: 32, gap: 10 },
+  logoRing: {
+    width: 88,
+    height: 88,
+    borderRadius: 44,
+    backgroundColor: T.primaryMuted,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 4,
+  },
   logoInner: {
-    width: 56, height: 56, borderRadius: 16,
-    justifyContent: 'center', alignItems: 'center', ...Shadows.glow,
+    width: 64,
+    height: 64,
+    borderRadius: 20,
+    backgroundColor: T.primary,
+    justifyContent: "center",
+    alignItems: "center",
+    ...Shadows.glow,
   },
-  logoText: { color: T.text, fontSize: 20, fontWeight: '900', letterSpacing: 2 },
-  logoGlow: {
-    position: 'absolute', top: -6, left: -6,
-    width: 68, height: 68, borderRadius: 34,
-    backgroundColor: 'rgba(0,51,160,0.12)',
+  logoText: {
+    color: "#FFFFFF",
+    fontSize: 22,
+    fontWeight: "900",
+    letterSpacing: 2,
   },
-  appName: { fontSize: 26, fontWeight: '800', color: T.text, letterSpacing: -0.5 },
-  goldLine: { width: 36, height: 3, backgroundColor: EPN_GOLD, borderRadius: 2, marginVertical: 2 },
-  tagline: { fontSize: 13, color: T.textSecondary },
+  appName: {
+    ...Typography.h2,
+    color: T.textPrimary,
+    fontSize: 30,
+  },
+  tagline: {
+    ...Typography.body,
+    color: T.textSecondary,
+    textAlign: "center",
+    maxWidth: 280,
+  },
   formCard: {
-    backgroundColor: T.surfaceGlass, borderRadius: Sizes.radiusLg,
-    borderWidth: 1, borderColor: T.cardBorder, padding: Sizes.paddingLg, ...Shadows.lg,
+    backgroundColor: T.surface,
+    borderRadius: Sizes.radiusLg,
+    borderWidth: 1,
+    borderColor: T.cardBorder,
+    padding: Sizes.paddingLg,
+    ...Shadows.sm,
   },
-  footer: { marginTop: 20, alignItems: 'center', gap: 14 },
+  footer: { marginTop: 24, alignItems: "center", gap: 14 },
   linkPrimary: {
-    color: T.text, fontSize: 13, fontWeight: '600',
-    backgroundColor: 'rgba(255,255,255,0.08)', paddingHorizontal: 20, paddingVertical: 10,
-    borderRadius: Sizes.radiusSm, overflow: 'hidden',
+    color: T.primary,
+    fontSize: 14,
+    fontWeight: "700",
+    backgroundColor: T.primaryMuted,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: Sizes.radiusSm,
+    overflow: "hidden",
   },
-  linkSecondary: { color: T.textTertiary, fontSize: 13, textDecorationLine: 'underline' },
+  linkSecondary: {
+    color: T.textSecondary,
+    fontSize: 13,
+    textDecorationLine: "underline",
+  },
 });

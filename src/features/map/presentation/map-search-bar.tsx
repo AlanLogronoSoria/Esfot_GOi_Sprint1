@@ -3,7 +3,7 @@ import { View, TextInput, TouchableOpacity, Text, StyleSheet, FlatList, Keyboard
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useMapSearch } from '@/features/map/application/map.hooks';
 import type { CampusLocation } from '@/features/map/domain/location.entity';
-import { DarkTheme as T, Sizes, Shadows } from '@/constants/design-system';
+import { LightTheme as T, Sizes, Shadows } from '@/constants/design-system';
 
 interface MapSearchBarProps { onSelectLocation: (l: CampusLocation) => void; onSearchStateChange?: (s: boolean) => void; }
 

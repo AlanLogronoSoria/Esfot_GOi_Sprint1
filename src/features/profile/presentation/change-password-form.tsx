@@ -14,7 +14,7 @@ import { changePasswordSchema, getPasswordStrength } from '@/features/auth/domai
 import type { ChangePasswordInput, PasswordStrength } from '@/features/auth/domain/auth.schema';
 import { useAuthStore } from '@/store/auth.store';
 import { useMutation } from '@tanstack/react-query';
-import { DarkTheme as T, Sizes } from '@/constants/design-system';
+import { LightTheme as T, Sizes } from '@/constants/design-system';
 
 export function ChangePasswordForm() {
   const changePasswordAction = useAuthStore((s) => s.changePassword);

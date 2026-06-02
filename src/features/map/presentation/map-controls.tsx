@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { DarkTheme as T, Shadows } from '@/constants/design-system';
+import { LightTheme as T, Shadows, Sizes } from '@/constants/design-system';
 
 interface MapControlsProps { onZoomIn: () => void; onZoomOut: () => void; onMyLocation: () => void; onToggleTraffic?: () => void; trafficEnabled?: boolean; isLocating?: boolean; }
 
@@ -17,9 +17,9 @@ export function MapControls({ onZoomIn, onZoomOut, onMyLocation, onToggleTraffic
 }
 
 const s = StyleSheet.create({
-  c: { backgroundColor: T.surface, borderRadius: 14, padding: 4, gap: 2, ...Shadows.md },
-  b: { width: 44, height: 44, borderRadius: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: T.surface },
+  c: { backgroundColor: T.surfaceGlass, borderRadius: Sizes.radiusLg, padding: 4, gap: 2, borderWidth: 1, borderColor: T.cardBorder, ...Shadows.md },
+  b: { width: 44, height: 44, borderRadius: 12, justifyContent: 'center', alignItems: 'center', backgroundColor: T.surface },
   ba: { backgroundColor: T.primaryMuted },
-  bt: { fontSize: 20, fontWeight: '600', color: T.textSecondary },
+  bt: { fontSize: 20, fontWeight: '600', color: T.primary },
   d: { height: 1, backgroundColor: T.divider, marginHorizontal: 8 },
 });

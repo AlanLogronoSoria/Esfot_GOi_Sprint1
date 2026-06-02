@@ -9,7 +9,7 @@ import { UserEntity } from '@/features/auth/domain/user.entity';
 import { useProfile } from '@/features/profile/application/profile.hooks';
 import { useAuthStore } from '@/store/auth.store';
 import { ChangePasswordForm } from './change-password-form';
-import { DarkTheme as T, Shadows, Sizes, Typography } from '@/constants/design-system';
+import { LightTheme as T, Shadows, Sizes, Typography } from '@/constants/design-system';
 
 const ROLE_LABELS: Record<string, string> = {
   estudiante: 'Estudiante', docente: 'Docente', administrador: 'Administrador',

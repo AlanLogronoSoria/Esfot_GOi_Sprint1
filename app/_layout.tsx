@@ -15,7 +15,7 @@ export default function RootLayout() {
           <Stack.Screen name="auth/reset-password" options={{ title: 'Nueva contraseña' }} />
           <Stack.Screen name="auth/express-login" options={{ title: 'Acceso Institucional' }} />
           <Stack.Screen name="auth/dev-login" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         </Stack>
       </AuthProvider>

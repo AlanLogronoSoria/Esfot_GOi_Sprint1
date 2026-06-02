@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState, useMemo } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Platform } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
 import type { MapRegion, MapMarkerData, ClusterPoint, GeoCoordinate } from '@/features/map/domain/coordinates';
 import type { CampusLocation } from '@/features/map/domain/location.entity';
@@ -14,7 +14,9 @@ import { LocationDetailSheet } from '@/features/map/presentation/location-detail
 import { RouteInfoCard } from '@/features/map/presentation/route-info-card';
 import { calculateOptimalRoute } from '@/features/map/services/route-calculator';
 import { useBatteryOptimizer } from '@/features/map/services/battery-optimizer';
+import { useRouter } from 'expo-router';
 import type { RouteCalculation } from '@/features/map/services/route-calculator';
+import { LightTheme as T, Shadows } from '@/constants/design-system';
 
 const EPN_REGION: MapRegion = {
   latitude: -0.2095,
@@ -28,6 +30,7 @@ function isClusterPoint(item: MapMarkerData | ClusterPoint): item is ClusterPoin
 }
 
 export default function MapScreen() {
+  const router = useRouter();
   const mapRef = useRef<MapView>(null);
   const { location: userLocation } = useLocation();
   const battery = useBatteryOptimizer();
@@ -164,7 +167,7 @@ export default function MapScreen() {
         {route && route.waypoints.length > 1 && (
           <Polyline
             coordinates={route.waypoints}
-            strokeColor="#1B6BB0"
+            strokeColor={T.primary}
             strokeWidth={4}
             lineDashPattern={[8, 6]}
             lineCap="round"
@@ -188,19 +191,32 @@ export default function MapScreen() {
         )}
       </MapView>
 
+      {/* Top Header Area */}
+      <View style={styles.topBar}>
+        <View style={styles.topBarRow}>
+          <TouchableOpacity
+            style={styles.menuBtn}
+            onPress={() => router.back()}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.menuIcon}>☰</Text>
+          </TouchableOpacity>
+          <View style={styles.searchWrap}>
+            <MapSearchBar onSelectLocation={handleSelectLocation} />
+          </View>
+        </View>
+        <View style={styles.filterWrap}>
+          <CategoryFilter
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+          />
+        </View>
+      </View>
+
+      {/* Route Info */}
       <RouteInfoCard route={route} isVisible={!!route} onClear={handleClearRoute} />
 
-      <View style={styles.searchContainer}>
-        <MapSearchBar onSelectLocation={handleSelectLocation} />
-      </View>
-
-      <View style={styles.filterContainer}>
-        <CategoryFilter
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-        />
-      </View>
-
+      {/* Map Controls */}
       <View style={styles.controlsContainer}>
         <MapControls
           onZoomIn={handleZoomIn}
@@ -210,45 +226,91 @@ export default function MapScreen() {
         />
       </View>
 
+      {/* Recenter FAB */}
+      <TouchableOpacity
+        style={styles.recenterFab}
+        onPress={handleMyLocation}
+        activeOpacity={0.8}
+      >
+        <Text style={styles.recenterIcon}>⊙</Text>
+      </TouchableOpacity>
+
+      {/* Location Detail Sheet */}
       <LocationDetailSheet
         location={selectedLocation}
         onClose={() => {
           setSelectedLocation(null);
           setRoute(null);
         }}
-        onNavigate={() => {
-          // Route already calculated
-        }}
+        onNavigate={() => {}}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    flex: 1,
-  },
-  searchContainer: {
+  container: { flex: 1 },
+  map: { flex: 1 },
+
+  topBar: {
     position: 'absolute',
-    top: 12,
-    left: 16,
-    right: 16,
-    zIndex: 100,
-  },
-  filterContainer: {
-    position: 'absolute',
-    top: 72,
+    top: 0,
     left: 0,
     right: 0,
-    zIndex: 99,
+    zIndex: 100,
+    paddingTop: Platform.OS === 'ios' ? 50 : 40,
+    paddingHorizontal: 12,
+    gap: 8,
   },
+  topBarRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  menuBtn: {
+    width: 40,
+    height: 40,
+    borderRadius: 14,
+    backgroundColor: T.surfaceGlass,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: T.cardBorder,
+    ...Shadows.sm,
+  },
+  menuIcon: {
+    fontSize: 18,
+    color: T.primary,
+    fontWeight: '700',
+  },
+  searchWrap: { flex: 1 },
+  filterWrap: { paddingLeft: 50 },
+
   controlsContainer: {
     position: 'absolute',
     right: 12,
-    top: 140,
+    top: Platform.OS === 'ios' ? 180 : 170,
     zIndex: 99,
+  },
+
+  recenterFab: {
+    position: 'absolute',
+    bottom: 100,
+    right: 16,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: T.surfaceGlass,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: T.cardBorder,
+    ...Shadows.lg,
+    zIndex: 50,
+  },
+  recenterIcon: {
+    fontSize: 22,
+    color: T.primary,
+    fontWeight: '600',
   },
 });

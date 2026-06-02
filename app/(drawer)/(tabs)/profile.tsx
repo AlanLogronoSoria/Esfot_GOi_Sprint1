@@ -2,7 +2,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { Redirect } from 'expo-router';
 import { useAuthStore } from '@/store/auth.store';
 import { ProfileForm } from '@/features/profile/presentation/profile-form';
-import { DarkTheme as T, Sizes } from '@/constants/design-system';
+import { LightTheme as T } from '@/constants/design-system';
 
 export default function ProfileScreen() {
   const user = useAuthStore((s) => s.user);
@@ -12,13 +12,21 @@ export default function ProfileScreen() {
   if (!user) return null;
 
   return (
-    <ScrollView style={s.screen} contentContainerStyle={s.content} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-      <ProfileForm />
-    </ScrollView>
+    <View style={s.root}>
+      <ScrollView
+        style={s.scroll}
+        contentContainerStyle={s.content}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
+        <ProfileForm />
+      </ScrollView>
+    </View>
   );
 }
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: T.background },
-  content: { padding: Sizes.paddingMd },
+  root: { flex: 1, backgroundColor: T.background },
+  scroll: { flex: 1 },
+  content: { paddingTop: 64, paddingBottom: 40, paddingHorizontal: 16 },
 });
